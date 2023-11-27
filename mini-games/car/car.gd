@@ -13,11 +13,10 @@ func _process(delta):
 	else:
 		force_com = 0.0
 	
-	if Input.is_action_pressed("left") && Input.is_action_pressed("right"):
-		steering_com = 0
-	elif Input.is_action_pressed("left"):
+	steering_com = 0
+	if Input.is_action_pressed("left") && !Input.is_action_pressed("right"):
 		steering_com = -750
-	elif Input.is_action_pressed("right"):
+	elif !Input.is_action_pressed("left") && Input.is_action_pressed("right"):
 		steering_com = 750
 	
 	print("force: %s | steering: %s" % [force_com, steering_com])
