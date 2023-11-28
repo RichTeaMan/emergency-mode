@@ -5,6 +5,8 @@ extends RigidBody2D
 var steering_com = 0.0
 var force_com = 0.0
 
+var first = true
+
 func _process(delta):
 	if Input.is_action_pressed("forward"):
 		force_com = 16.0
@@ -21,10 +23,16 @@ func _process(delta):
 	
 	print("force: %s | steering: %s" % [force_com, steering_com])
 	
+
+	
 func _ready():
 	set_process_input(true)
 
 func _physics_process(delta):
+	if first:
+		apply_force(Vector2(0, 20000.0))
+		first = false
+		return
 	var tf = get_global_transform()
 	var vel = get_linear_velocity()
 #   get the orthogonal velocity vector
