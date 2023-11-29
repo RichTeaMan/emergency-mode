@@ -7,24 +7,22 @@ var force_com = 0.0
 
 var first = true
 
-func _process(delta):
-	if Input.is_action_pressed("forward"):
-		force_com = 16.0
-	elif Input.is_action_pressed("back"):
-		force_com = -8.0
-	else:
-		force_com = 0.0
-	
+func reset_inputs():
+	force_com = 0.0
 	steering_com = 0
-	if Input.is_action_pressed("left") && !Input.is_action_pressed("right"):
-		steering_com = -750
-	elif !Input.is_action_pressed("left") && Input.is_action_pressed("right"):
-		steering_com = 750
-	
-	print("force: %s | steering: %s" % [force_com, steering_com])
-	
 
+func press_forward():
+	force_com = 16.0
+
+func press_backward():
+	force_com = -8.0
 	
+func press_left():
+	steering_com = -750
+
+func press_right():
+	steering_com = 750
+
 func _ready():
 	set_process_input(true)
 
@@ -39,7 +37,7 @@ func _physics_process(delta):
 	var right_vel = tf.x * tf.x.dot(vel)
 #   decrease the force in proportion to the velocity to stop endless acceleration
 	var force = force_com - force_com * clamp(vel.length() / 400.0, 0.0, 1.0)
-	print("force %s" % [force])
+	#print("force %s" % [force])
 	var steering_torque = steering_com
 	if tf.y.dot(vel) < 0.0:
 #   if reversing, reverse the steering
@@ -54,3 +52,18 @@ func _physics_process(delta):
 	apply_impulse(tf.basis_xform(Vector2(0, force)))
 #   scale the steering torque with velocity to prevent turning the car when not moving
 	apply_torque(steering_torque * vel.length() / 200.0)
+
+func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
+	if state.get_contact_count() == 0:
+		return
+	
+	var collision_force = Vector2.ZERO
+	for i in range(state.get_contact_count()):
+		collision_force += state.get_contact_impulse(i) * state.get_contact_local_normal(i)
+	if collision_force != Vector2.ZERO:
+		print("HIT! %s" % collision_force)
+		Global.fire_vehicle_hit(17)
+	#if collision_force.length_squared() > 30000.0:
+	#	$crash_sounds.play_big_sound()
+	#elif collision_force.length_squared() > 100.0:
+	#	$crash_sounds.play_small_sound()
