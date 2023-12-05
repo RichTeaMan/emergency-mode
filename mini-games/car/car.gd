@@ -28,7 +28,7 @@ func _ready():
 
 func _physics_process(delta):
 	if first:
-		apply_force(Vector2(0, 20000.0))
+		#apply_force(Vector2(0, 20000.0))
 		first = false
 		return
 	var tf = get_global_transform()
@@ -61,7 +61,6 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	for i in range(state.get_contact_count()):
 		collision_force += state.get_contact_impulse(i) * state.get_contact_local_normal(i)
 	if collision_force != Vector2.ZERO:
-		print("HIT! %s" % collision_force)
 		Global.fire_vehicle_hit(17)
 	#if collision_force.length_squared() > 30000.0:
 	#	$crash_sounds.play_big_sound()

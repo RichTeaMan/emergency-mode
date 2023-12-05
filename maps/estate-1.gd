@@ -1,4 +1,5 @@
 extends Node2D
 
-func spawn_point() -> Vector2:
-	return Vector2(32.0, 32.0)
+func move_to_spawn_point(body: RigidBody2D):
+	body.position = Vector2(0.5 * 64, 0.5 * 64)
+	body.rotation_degrees = 0

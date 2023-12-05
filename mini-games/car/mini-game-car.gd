@@ -12,10 +12,13 @@ func _process(delta):
 	%car.reset_inputs()
 	if crashed:
 		return
-	if Input.is_action_pressed("forward"):
-		%car.press_forward()
-	elif Input.is_action_pressed("back"):
-		%car.press_backward()
+	
+	%car.press_forward()
+	
+	#if Input.is_action_pressed("forward"):
+	#	%car.press_forward()
+	#elif Input.is_action_pressed("back"):
+	#	%car.press_backward()
 
 	if Input.is_action_pressed("left") && !Input.is_action_pressed("right"):
 		%car.press_left()
@@ -30,17 +33,14 @@ func load_map(map_name: String):
 	var map_scene = load(map_path)
 	var map = map_scene.instantiate()
 	
-	if map.has_method("spawn_point"):
-		var spawn_point = map.spawn_point()
-		%car.position = spawn_point
+	if map.has_method("move_to_spawn_point"):
+		map.move_to_spawn_point(%car)
 	
 	%map_container.add_child(map)
 
 func _vehicle_hit(speed: float):
-	print("game says hit")
 	crashed = true
 	Global.fire_game_over(Global.GameOverResult.FAIL)
-
 
 func _on_timer_timeout():
 	time += 0.1
