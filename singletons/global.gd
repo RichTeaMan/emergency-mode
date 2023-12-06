@@ -24,3 +24,9 @@ func fire_next_level():
 	
 func fire_restart_level():
 	emit_signal("restart_level")
+
+func fire_timer():
+	pass
+
+func fire_update_timer_text(text: String):
+	emit_signal("update_timer_text", text)

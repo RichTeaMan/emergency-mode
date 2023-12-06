@@ -40,7 +40,9 @@ func load_map(map_name: String):
 
 func _vehicle_hit(speed: float):
 	crashed = true
+	%timer.stop()
 	Global.fire_game_over(Global.GameOverResult.FAIL)
 
 func _on_timer_timeout():
-	time += 0.1
+	time += %timer.wait_time
+	%timer_label.text = "%03.1f" % time
