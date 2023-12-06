@@ -13,6 +13,10 @@ func _ready():
 
 	load_level(levels[level_index])
 
+func _process(delta):
+	if %failed_ui.visible && Input.is_action_pressed("ui_accept"):
+		_on_restart_pressed()
+
 func _game_over(game_over_state):
 	if game_over_state == Global.GameOverResult.FAIL:
 		%failed_ui.show()
@@ -42,7 +46,6 @@ func _restart_level():
 func _on_next_level_pressed():
 	%failed_ui.hide()
 	Global.fire_next_level()
-
 
 func _on_restart_pressed():
 	%failed_ui.hide()
