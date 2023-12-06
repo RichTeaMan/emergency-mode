@@ -53,5 +53,32 @@ text = "Main Menu"
 layout_mode = 2
 text = "Next Level"
 
+[node name="success_ui" type="VBoxContainer" parent="CanvasLayer/MarginContainer/CenterContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="success_text" type="Label" parent="CanvasLayer/MarginContainer/CenterContainer/success_ui"]
+layout_mode = 2
+theme = ExtResource("2_ox5of")
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "Success!"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/CenterContainer/success_ui"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/MarginContainer/CenterContainer/success_ui/HBoxContainer"]
+layout_mode = 2
+text = "Try Again"
+
+[node name="Button2" type="Button" parent="CanvasLayer/MarginContainer/CenterContainer/success_ui/HBoxContainer"]
+layout_mode = 2
+text = "Main Menu"
+
+[node name="Button3" type="Button" parent="CanvasLayer/MarginContainer/CenterContainer/success_ui/HBoxContainer"]
+layout_mode = 2
+text = "Next Level"
+
 [connection signal="pressed" from="CanvasLayer/MarginContainer/CenterContainer/failed_ui/HBoxContainer/Button" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="CanvasLayer/MarginContainer/CenterContainer/failed_ui/HBoxContainer/Button3" to="." method="_on_next_level_pressed"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/CenterContainer/success_ui/HBoxContainer/Button" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/CenterContainer/success_ui/HBoxContainer/Button3" to="." method="_on_next_level_pressed"]

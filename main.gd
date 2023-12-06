@@ -6,6 +6,7 @@ var level_index = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	%failed_ui.hide()
+	%success_ui.hide()
 	
 	Global.connect("game_over", Callable(self, "_game_over"))
 	Global.connect("next_level", Callable(self, "_next_level"))
@@ -20,6 +21,8 @@ func _process(delta):
 func _game_over(game_over_state):
 	if game_over_state == Global.GameOverResult.FAIL:
 		%failed_ui.show()
+	if game_over_state == Global.GameOverResult.SUCCESS:
+		%success_ui.show()
 
 func load_level(level: Level):
 	var game_scene
@@ -29,7 +32,7 @@ func load_level(level: Level):
 		push_error("Unknown game type: %s" % level.game_type)
 	
 	var game = game_scene.instantiate()
-	game.load_map(level.map_name)
+	game.load_level(level)
 	
 	for child in $%game_container.get_children():
 		child.free()
@@ -45,8 +48,10 @@ func _restart_level():
 
 func _on_next_level_pressed():
 	%failed_ui.hide()
+	%success_ui.hide()
 	Global.fire_next_level()
 
 func _on_restart_pressed():
 	%failed_ui.hide()
+	%success_ui.hide()
 	Global.fire_restart_level()
