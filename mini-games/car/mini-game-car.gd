@@ -42,6 +42,8 @@ func load_level(level: Level):
 	time_target = level.time
 
 func _vehicle_hit(speed: float):
+	if !car_active:
+		return
 	car_active = false
 	%timer.stop()
 	Global.fire_game_over(Global.GameOverResult.FAIL)
