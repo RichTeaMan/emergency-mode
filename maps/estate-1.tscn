@@ -1,17 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://0xtonwbh3rt5"]
+[gd_scene load_steps=3 format=3 uid="uid://0xtonwbh3rt5"]
 
 [ext_resource type="Script" path="res://maps/estate-1.gd" id="1_t3pd0"]
-[ext_resource type="PackedScene" uid="uid://uepmduwhgura" path="res://obstacles/house.tscn" id="3_v1mk4"]
 [ext_resource type="TileSet" uid="uid://dr2g3t6qf7eiu" path="res://resources/tileset.tres" id="4_85isy"]
 
 [node name="estate-1" type="Node2D"]
 script = ExtResource("1_t3pd0")
-
-[node name="house5" parent="." instance=ExtResource("3_v1mk4")]
-position = Vector2(-483, 81)
-
-[node name="house6" parent="." instance=ExtResource("3_v1mk4")]
-position = Vector2(420, 64)
 
 [node name="road-tiles" type="TileMap" parent="."]
 position = Vector2(-1, 0)
