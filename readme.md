@@ -4,3 +4,5 @@ A 2D game (maybe eventually) to test reactions and not-crashing abilities.
 
 Made for the [BigMode Game Jam 2023](https://itch.io/jam/bigmode-2023).
 
+Sprites made using [Pixelorama](https://orama-interactive.itch.io/pixelorama). PXO files should be editted with this tool. Spritesheets should use 8 columns with 64 pixel square cells.
+
