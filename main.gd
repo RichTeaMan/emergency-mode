@@ -3,10 +3,30 @@ extends Node2D
 var levels = Level.levels_init()
 var level_index = 0
 
+func hide_ui():
+	hide_fail_ui()
+	hide_success_ui()
+	%container_bottom.hide()
+
+func show_success_ui():
+	for node in get_tree().get_nodes_in_group("success_ui"):
+		node.show()
+
+func hide_success_ui():
+	for node in get_tree().get_nodes_in_group("success_ui"):
+		node.hide()
+
+func show_fail_ui():
+	for node in get_tree().get_nodes_in_group("failed_ui"):
+		node.show()
+
+func hide_fail_ui():
+	for node in get_tree().get_nodes_in_group("failed_ui"):
+		node.hide()
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	%failed_ui.hide()
-	%success_ui.hide()
+	hide_ui()
 	
 	Global.connect("game_over", Callable(self, "_game_over"))
 	Global.connect("next_level", Callable(self, "_next_level"))
@@ -15,14 +35,20 @@ func _ready():
 	load_level(levels[level_index])
 
 func _process(delta):
-	if %failed_ui.visible && Input.is_action_pressed("ui_accept"):
-		_on_restart_pressed()
+	if Input.is_action_pressed("ui_accept"):
+		if get_tree().get_nodes_in_group("failed_ui")[0].visible:
+			_on_button_retry_pressed()
+		if get_tree().get_nodes_in_group("success_ui")[0].visible:
+			_on_button_next_pressed()
 
 func _game_over(game_over_state):
+	%container_bottom.show()
+	%button_next.disabled = false
 	if game_over_state == Global.GameOverResult.FAIL:
-		%failed_ui.show()
+		show_fail_ui()
+		%button_next.disabled = true
 	if game_over_state == Global.GameOverResult.SUCCESS:
-		%success_ui.show()
+		show_success_ui()
 
 func load_level(level: Level):
 	var game_scene
@@ -46,12 +72,13 @@ func _next_level():
 func _restart_level():
 	load_level(levels[level_index])
 
-func _on_next_level_pressed():
-	%failed_ui.hide()
-	%success_ui.hide()
+func _on_button_next_pressed():
+	hide_ui()
 	Global.fire_next_level()
 
-func _on_restart_pressed():
-	%failed_ui.hide()
-	%success_ui.hide()
+func _on_button_retry_pressed():
+	hide_ui()
 	Global.fire_restart_level()
+
+func _on_button_menu_pressed():
+	pass # Replace with function body.

@@ -12,6 +12,7 @@ func _ready():
 func _process(delta):
 	%car.reset_inputs()
 	if !car_active:
+		%timer_label.hide()
 		return
 	
 	%car.press_forward()
@@ -54,4 +55,4 @@ func _on_timer_timeout():
 		Global.fire_game_over(Global.GameOverResult.SUCCESS)
 		car_active = false
 		%timer.stop()
-	%timer_label.text = "%04.1f" % time
+	%timer_label.text = "%04.1f seconds" % (time_target - time)
