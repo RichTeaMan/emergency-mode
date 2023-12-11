@@ -31,7 +31,21 @@ func _ready():
 	Global.connect("game_over", Callable(self, "_game_over"))
 	Global.connect("next_level", Callable(self, "_next_level"))
 	Global.connect("restart_level", Callable(self, "_restart_level"))
+	
+	print("cmd: %s" % OS.get_cmdline_args())
+	
+	var arguments = {}
+	for argument in OS.get_cmdline_args():
+		# Parse valid command-line arguments into a dictionary
+		if argument.find("=") > -1:
+			var key_value = argument.split("=")
+			arguments[key_value[0].lstrip("--")] = key_value[1]
 
+	if arguments.level:
+		# possible errors if level is not a valid integer or it's not in bounds.
+		# I'm choosing not to worry about it.
+		level_index = int(arguments.level) - 1
+		print("Setting level to %s because of command line argument." % level_index)
 	load_level(levels[level_index])
 
 func _process(delta):

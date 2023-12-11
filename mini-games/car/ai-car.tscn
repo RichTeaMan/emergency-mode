@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://8f1mexordmbu"]
+
+[ext_resource type="Script" path="res://mini-games/car/ai-car.gd" id="1_yfjpg"]
+[ext_resource type="Texture2D" uid="uid://b0tgoll5x82p4" path="res://resources/car-2.png" id="2_i4d63"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ic36s"]
+size = Vector2(30, 51)
+
+[node name="ai_car" type="RigidBody2D"]
+unique_name_in_owner = true
+max_contacts_reported = 10
+contact_monitor = true
+script = ExtResource("1_yfjpg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_ic36s")
+
+[node name="sprite" type="Sprite2D" parent="."]
+z_index = 10
+rotation = 3.14159
+scale = Vector2(0.095, 0.1)
+texture = ExtResource("2_i4d63")
+
+[node name="Camera2D" type="Camera2D" parent="."]

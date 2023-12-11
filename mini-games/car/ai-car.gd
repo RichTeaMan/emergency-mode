@@ -5,8 +5,8 @@ extends RigidBody2D
 var steering_com = 0.0
 var force_com = 0.0
 
-var max_speed = 400.0
-
+@export var forward_force: float = 16.0
+@export var max_speed: float = 400.0
 var first = true
 
 func reset_inputs():
@@ -14,7 +14,7 @@ func reset_inputs():
 	steering_com = 0
 
 func press_forward():
-	force_com = 16.0
+	force_com = forward_force
 
 func press_backward():
 	force_com = -8.0
@@ -27,6 +27,9 @@ func press_right():
 
 func _ready():
 	set_process_input(true)
+
+func _process(delta):
+	press_forward()
 
 func _physics_process(delta):
 	if first:

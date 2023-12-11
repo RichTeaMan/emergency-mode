@@ -21,5 +21,11 @@ static func levels_init() -> Array[Level]:
 	level_2.game_type = GAME_TYPE.CAR
 	level_2.map_name = "estate-2"
 	level_2.time = 5
+	
+	var level_3 = Level.new()
+	level_3.name = "Motorway 1"
+	level_3.game_type = GAME_TYPE.CAR
+	level_3.map_name = "motorway-1"
+	level_3.time = 10
 
-	return [level_1, level_2]
+	return [level_1, level_2, level_3]
