@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=3 uid="uid://ctgdaklc66av2"]
+
+[ext_resource type="Theme" uid="uid://cnlaljp0dvwrt" path="res://resources/title.tres" id="1_7a4sj"]
+[ext_resource type="Script" path="res://title.gd" id="1_t22rv"]
+[ext_resource type="Theme" uid="uid://dylr3kfip6eyw" path="res://resources/game_ui.tres" id="2_qwuuv"]
+
+[node name="start" type="CanvasLayer"]
+script = ExtResource("1_t22rv")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -134.0
+offset_bottom = 23.0
+grow_horizontal = 0
+theme = ExtResource("1_7a4sj")
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+text = "Emergency Mode"
+horizontal_alignment = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -20.0
+offset_right = 40.0
+offset_bottom = 20.0
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+
+[node name="VFlowContainer" type="VFlowContainer" parent="MarginContainer2"]
+layout_mode = 2
+
+[node name="button_start_game" type="Button" parent="MarginContainer2/VFlowContainer"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+theme = ExtResource("2_qwuuv")
+text = "Play"
+
+[node name="MarginContainer3" type="MarginContainer" parent="."]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer3"]
+custom_minimum_size = Vector2(600, 400)
+layout_mode = 2
+theme = ExtResource("2_qwuuv")
+text = "In the near and short-sighted future, all road vehicles are run by AI. Unfortunately, the AI isn't very good. When an imminent crash is detected, Emergency Mode is activated. You must steer clear of any danger during the allotted time. "
+scroll_active = false
+
+[connection signal="pressed" from="MarginContainer2/VFlowContainer/button_start_game" to="." method="_on_button_start_game_pressed"]

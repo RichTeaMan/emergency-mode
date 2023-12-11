@@ -8,6 +8,8 @@ signal next_level()
 
 signal restart_level()
 
+signal start_level(level_index: int)
+
 enum GameOverResult {
 	SUCCESS,
 	FAIL
@@ -24,6 +26,9 @@ func fire_next_level():
 	
 func fire_restart_level():
 	emit_signal("restart_level")
+	
+func fire_start_level(level_index: int):
+	emit_signal("start_level", level_index)
 
 func fire_timer():
 	pass

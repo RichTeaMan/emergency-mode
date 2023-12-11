@@ -31,6 +31,7 @@ func _ready():
 	Global.connect("game_over", Callable(self, "_game_over"))
 	Global.connect("next_level", Callable(self, "_next_level"))
 	Global.connect("restart_level", Callable(self, "_restart_level"))
+	Global.connect("start_level", Callable(self, "_start_level"))
 	
 	print("cmd: %s" % OS.get_cmdline_args())
 	
@@ -41,12 +42,17 @@ func _ready():
 			var key_value = argument.split("=")
 			arguments[key_value[0].lstrip("--")] = key_value[1]
 
-	if arguments.level:
+	if "level" in arguments && arguments.level:
 		# possible errors if level is not a valid integer or it's not in bounds.
 		# I'm choosing not to worry about it.
 		level_index = int(arguments.level) - 1
 		print("Setting level to %s because of command line argument." % level_index)
-	load_level(levels[level_index])
+		load_level(levels[level_index])
+	
+	else:
+		# show title screen
+		var title_scene = load("res://title.tscn")
+		%game_container.add_child(title_scene.instantiate())
 
 func _process(delta):
 	if Input.is_action_pressed("ui_accept"):
@@ -75,7 +81,8 @@ func load_level(level: Level):
 	game.load_level(level)
 	
 	for child in $%game_container.get_children():
-		child.free()
+		child.queue_free()
+		#child.free()
 	$"%game_container".add_child(game)
 
 func _next_level():
@@ -84,6 +91,10 @@ func _next_level():
 	load_level(levels[level_index])
 	
 func _restart_level():
+	load_level(levels[level_index])
+		
+func _start_level(start_level_index: int):
+	level_index = start_level_index
 	load_level(levels[level_index])
 
 func _on_button_next_pressed():
