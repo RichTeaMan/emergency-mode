@@ -10,6 +10,8 @@ signal restart_level()
 
 signal start_level(level_index: int)
 
+signal destination_hit()
+
 enum GameOverResult {
 	SUCCESS,
 	FAIL
@@ -35,3 +37,6 @@ func fire_timer():
 
 func fire_update_timer_text(text: String):
 	emit_signal("update_timer_text", text)
+
+func fire_destination_hit():
+	emit_signal("destination_hit")

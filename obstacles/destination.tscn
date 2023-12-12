@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddji8hu3wvm2s"]
+
+[ext_resource type="Script" path="res://obstacles/destination.gd" id="1_oikcn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ela4"]
+size = Vector2(64, 360)
+
+[node name="Destination" type="Node2D"]
+z_index = 1
+script = ExtResource("1_oikcn")
+size_x = 10.0
+size_y = 10
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="collision" type="CollisionShape2D" parent="Area2D"]
+unique_name_in_owner = true
+shape = SubResource("RectangleShape2D_3ela4")
+
+[node name="colour" type="ColorRect" parent="."]
+unique_name_in_owner = true
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 5.0
+offset_bottom = 5.0
+color = Color(0, 0.937255, 0.941176, 0.494118)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

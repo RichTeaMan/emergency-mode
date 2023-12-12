@@ -8,6 +8,7 @@ var time_target = 60.0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Global.connect("vehicle_hit", Callable(self, "_vehicle_hit"))
+	Global.connect("destination_hit", Callable(self, "_destination_hit"))
 
 func _process(delta):
 	%car.reset_inputs()
@@ -49,10 +50,15 @@ func _vehicle_hit(speed: float):
 	%timer.stop()
 	Global.fire_game_over(Global.GameOverResult.FAIL)
 
+func _destination_hit():
+	Global.fire_game_over(Global.GameOverResult.SUCCESS)
+	car_active = false
+	%timer.stop()
+
 func _on_timer_timeout():
 	time += %timer.wait_time
 	if time >= time_target || is_equal_approx(time, time_target):
-		Global.fire_game_over(Global.GameOverResult.SUCCESS)
+		Global.fire_game_over(Global.GameOverResult.FAIL)
 		car_active = false
 		%timer.stop()
 	%timer_label.text = "%04.1f seconds" % (time_target - time)
