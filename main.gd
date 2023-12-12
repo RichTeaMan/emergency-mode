@@ -3,6 +3,9 @@ extends Node2D
 var levels = Level.levels_init()
 var level_index = 0
 
+var success_sass = TextLoad.load_success_sass()
+var fail_sass = TextLoad.load_fail_sass()
+
 func hide_ui():
 	hide_fail_ui()
 	hide_success_ui()
@@ -62,6 +65,8 @@ func _process(delta):
 			_on_button_next_pressed()
 
 func _game_over(game_over_state):
+	%success_sass_text.text = TextLoad.random_element(success_sass)
+	%failed_sass_text.text = TextLoad.random_element(fail_sass)
 	%container_bottom.show()
 	%button_next.disabled = false
 	if game_over_state == Global.GameOverResult.FAIL:
