@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://ccexl7s0rg4xy"]
+[gd_scene load_steps=5 format=3 uid="uid://ccexl7s0rg4xy"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_udwue"]
 [ext_resource type="Theme" uid="uid://6afj7j3bbsed" path="res://resources/game_end_text.tres" id="2_ox5of"]
 [ext_resource type="Theme" uid="uid://dylr3kfip6eyw" path="res://resources/game_ui.tres" id="3_v6cx0"]
+[ext_resource type="AudioStream" uid="uid://bkx25o23wm2mk" path="res://resources/sounds/sunset-alleyway.wav" id="4_pdnjg"]
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_udwue")
@@ -111,6 +112,12 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("3_v6cx0")
 text = "Main Menu"
+
+[node name="music_player" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("4_pdnjg")
+autoplay = true
+bus = &"Music"
 
 [connection signal="pressed" from="CanvasLayer/container_bottom/VBoxContainer/HBoxContainer/button_next" to="." method="_on_button_next_pressed"]
 [connection signal="pressed" from="CanvasLayer/container_bottom/VBoxContainer/HBoxContainer/button_retry" to="." method="_on_button_retry_pressed"]
