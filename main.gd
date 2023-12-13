@@ -6,6 +6,9 @@ var level_index = 0
 var success_sass = TextLoad.load_success_sass()
 var fail_sass = TextLoad.load_fail_sass()
 
+var sucess_sass_bag = []
+var fail_sass_bag = []
+
 func hide_ui():
 	hide_fail_ui()
 	hide_success_ui()
@@ -26,6 +29,22 @@ func show_fail_ui():
 func hide_fail_ui():
 	for node in get_tree().get_nodes_in_group("failed_ui"):
 		node.hide()
+
+func next_success_sass():
+	var text = sucess_sass_bag.pop_back()
+	if text == null:
+		sucess_sass_bag = success_sass.duplicate()
+		sucess_sass_bag.shuffle()
+		text = next_success_sass()
+	return text
+
+func next_fail_sass():
+	var text = fail_sass_bag.pop_back()
+	if text == null:
+		fail_sass_bag = fail_sass.duplicate()
+		fail_sass_bag.shuffle()
+		text = next_fail_sass()
+	return text
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -65,14 +84,14 @@ func _process(delta):
 			_on_button_next_pressed()
 
 func _game_over(game_over_state):
-	%success_sass_text.text = TextLoad.random_element(success_sass)
-	%failed_sass_text.text = TextLoad.random_element(fail_sass)
 	%container_bottom.show()
 	%button_next.disabled = false
 	if game_over_state == Global.GameOverResult.FAIL:
+		%failed_sass_text.text = next_fail_sass()
 		show_fail_ui()
 		%button_next.disabled = true
 	if game_over_state == Global.GameOverResult.SUCCESS:
+		%success_sass_text.text = next_success_sass()
 		show_success_ui()
 
 func load_level(level: Level):
