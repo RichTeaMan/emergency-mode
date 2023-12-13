@@ -51,11 +51,15 @@ func _vehicle_hit(speed: float):
 	Global.fire_game_over(Global.GameOverResult.FAIL)
 
 func _destination_hit():
+	if !car_active:
+		return
 	Global.fire_game_over(Global.GameOverResult.SUCCESS)
 	car_active = false
 	%timer.stop()
 
 func _on_timer_timeout():
+	if !car_active:
+		return
 	time += %timer.wait_time
 	if time >= time_target || is_equal_approx(time, time_target):
 		Global.fire_game_over(Global.GameOverResult.FAIL)
