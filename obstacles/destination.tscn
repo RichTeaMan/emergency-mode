@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://obstacles/destination.gd" id="1_oikcn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ela4"]
-size = Vector2(64, 360)
+size = Vector2(64, 64)
 
 [node name="Destination" type="Node2D"]
 z_index = 1

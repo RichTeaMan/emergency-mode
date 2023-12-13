@@ -20,8 +20,6 @@ func _process(_delta):
 	if Engine.is_editor_hint():
 		_ready()
 
-
 func _on_area_2d_body_entered(body):
 	if body.name == 'car':
-		print("DESTINATION!!!")
 		Global.fire_destination_hit()
