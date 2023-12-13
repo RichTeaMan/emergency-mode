@@ -62,7 +62,7 @@ func _on_timer_timeout():
 		return
 	time += %timer.wait_time
 	if time >= time_target || is_equal_approx(time, time_target):
-		Global.fire_game_over(Global.GameOverResult.FAIL)
+		Global.fire_game_over(Global.GameOverResult.TIMEOUT)
 		car_active = false
 		%timer.stop()
 	%timer_label.text = "%04.1f seconds" % (time_target - time)

@@ -45,6 +45,23 @@ theme = ExtResource("3_v6cx0")
 text = "### Fail sass ###"
 horizontal_alignment = 1
 
+[node name="timeout_ui" type="VBoxContainer" parent="CanvasLayer/MarginContainer/CenterContainer" groups=["timeout_ui"]]
+layout_mode = 2
+
+[node name="timeout_text" type="Label" parent="CanvasLayer/MarginContainer/CenterContainer/timeout_ui"]
+layout_mode = 2
+theme = ExtResource("2_ox5of")
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "Timed Out!"
+horizontal_alignment = 1
+
+[node name="timeout_sass_text" type="Label" parent="CanvasLayer/MarginContainer/CenterContainer/timeout_ui"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("3_v6cx0")
+text = "### Fail sass ###"
+horizontal_alignment = 1
+
 [node name="success_ui" type="VBoxContainer" parent="CanvasLayer/MarginContainer/CenterContainer" groups=["success_ui"]]
 visible = false
 layout_mode = 2

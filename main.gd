@@ -1,5 +1,9 @@
 extends Node2D
 
+var SUCCESS_UI_GROUP = "success_ui"
+var FAILED_UI_GROUP = "failed_ui"
+var TIMEOUT_UI_GROUP = "timeout_ui"
+
 var levels = Level.levels_init()
 var level_index = 0
 
@@ -12,22 +16,31 @@ var fail_sass_bag = []
 func hide_ui():
 	hide_fail_ui()
 	hide_success_ui()
+	hide_timeout_ui()
 	%container_bottom.hide()
 
 func show_success_ui():
-	for node in get_tree().get_nodes_in_group("success_ui"):
+	for node in get_tree().get_nodes_in_group(SUCCESS_UI_GROUP):
 		node.show()
 
 func hide_success_ui():
-	for node in get_tree().get_nodes_in_group("success_ui"):
+	for node in get_tree().get_nodes_in_group(SUCCESS_UI_GROUP):
 		node.hide()
 
 func show_fail_ui():
-	for node in get_tree().get_nodes_in_group("failed_ui"):
+	for node in get_tree().get_nodes_in_group(FAILED_UI_GROUP):
 		node.show()
 
 func hide_fail_ui():
-	for node in get_tree().get_nodes_in_group("failed_ui"):
+	for node in get_tree().get_nodes_in_group(FAILED_UI_GROUP):
+		node.hide()
+
+func show_timeout_ui():
+	for node in get_tree().get_nodes_in_group(TIMEOUT_UI_GROUP):
+		node.show()
+
+func hide_timeout_ui():
+	for node in get_tree().get_nodes_in_group(TIMEOUT_UI_GROUP):
 		node.hide()
 
 func next_success_sass():
@@ -78,20 +91,23 @@ func _ready():
 
 func _process(delta):
 	if Input.is_action_pressed("ui_accept"):
-		if get_tree().get_nodes_in_group("failed_ui")[0].visible:
+		if get_tree().get_nodes_in_group(FAILED_UI_GROUP)[0].visible || get_tree().get_nodes_in_group(TIMEOUT_UI_GROUP)[0].visible:
 			_on_button_retry_pressed()
-		if get_tree().get_nodes_in_group("success_ui")[0].visible:
+		if get_tree().get_nodes_in_group(SUCCESS_UI_GROUP)[0].visible:
 			_on_button_next_pressed()
 
 func _game_over(game_over_state):
 	%container_bottom.show()
-	%button_next.disabled = false
+	%button_next.disabled = true
 	if game_over_state == Global.GameOverResult.FAIL:
 		%failed_sass_text.text = next_fail_sass()
 		show_fail_ui()
-		%button_next.disabled = true
+	if game_over_state == Global.GameOverResult.TIMEOUT:
+		%timeout_sass_text.text = next_fail_sass()
+		show_timeout_ui()
 	if game_over_state == Global.GameOverResult.SUCCESS:
 		%success_sass_text.text = next_success_sass()
+		%button_next.disabled = false
 		show_success_ui()
 
 func load_level(level: Level):

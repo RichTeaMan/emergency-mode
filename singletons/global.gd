@@ -14,7 +14,8 @@ signal destination_hit()
 
 enum GameOverResult {
 	SUCCESS,
-	FAIL
+	FAIL,
+	TIMEOUT
 }
 
 func fire_vehicle_hit(speed: float):
