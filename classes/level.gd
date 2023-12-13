@@ -20,7 +20,7 @@ static func levels_init() -> Array[Level]:
 	level_2.name = "Estate 2"
 	level_2.game_type = GAME_TYPE.CAR
 	level_2.map_name = "estate-2"
-	level_2.time = 5
+	level_2.time = 10
 	
 	var level_3 = Level.new()
 	level_3.name = "Motorway 1"
@@ -33,5 +33,23 @@ static func levels_init() -> Array[Level]:
 	level_4.game_type = GAME_TYPE.CAR
 	level_4.map_name = "estate-3"
 	level_4.time = 5
+	
+	var level_5 = Level.new()
+	level_5.name = "Motorway 2"
+	level_5.game_type = GAME_TYPE.CAR
+	level_5.map_name = "motorway-2"
+	level_5.time = 10
+	
+	var level_6 = Level.new()
+	level_6.name = "Estate 4"
+	level_6.game_type = GAME_TYPE.CAR
+	level_6.map_name = "estate-4"
+	level_6.time = 10
+	
+	var level_7 = Level.new()
+	level_7.name = "Estate 5"
+	level_7.game_type = GAME_TYPE.CAR
+	level_7.map_name = "estate-5"
+	level_7.time = 10
 
-	return [level_1, level_2, level_3, level_4]
+	return [level_1, level_2, level_3, level_4, level_5, level_6, level_7]
