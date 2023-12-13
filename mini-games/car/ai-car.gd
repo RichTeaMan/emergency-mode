@@ -65,8 +65,8 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	var collision_force = Vector2.ZERO
 	for i in range(state.get_contact_count()):
 		collision_force += state.get_contact_impulse(i) * state.get_contact_local_normal(i)
-	if collision_force != Vector2.ZERO:
-		Global.fire_vehicle_hit(17)
+	#if collision_force != Vector2.ZERO:
+	#	Global.fire_vehicle_hit(17)
 	#if collision_force.length_squared() > 30000.0:
 	#	$crash_sounds.play_big_sound()
 	#elif collision_force.length_squared() > 100.0:
