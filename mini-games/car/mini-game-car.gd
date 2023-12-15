@@ -2,7 +2,6 @@ extends Node
 
 var car_active = true
 var cutscene_playing = false
-var cutscene_awaiting_input = false
 
 var time = 0.0
 var time_target = 60.0
@@ -28,9 +27,8 @@ func _physics_process(_delta):
 func _process(_delta):
 	%car.reset_inputs()
 	if cutscene_playing:
-		if cutscene_awaiting_input && Input.is_action_pressed("ui_accept"):
+		if Input.is_action_just_pressed("ui_accept"):
 			cutscene_playing = false
-			cutscene_awaiting_input = false
 			%cutscene_animation/MarginContainer.hide()
 		return
 	if !car_active:
@@ -80,8 +78,9 @@ func load_level(level: Level, first_time: bool):
 		%cutscene_animation/MarginContainer.hide()
 
 func _on_cutscene_animation_animation_finished(anim_name):
-	if anim_name == "intro":
-		cutscene_awaiting_input = true
+	pass
+	#if anim_name == "intro":
+#		cutscene_awaiting_input = true
 
 func _vehicle_hit(_speed: float):
 	if !car_active:
