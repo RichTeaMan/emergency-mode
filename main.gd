@@ -110,7 +110,6 @@ func _game_over(game_over_state):
 		show_success_ui()
 
 func load_level(level: Level, first_time: bool):
-	print("about to hide?")
 	BuildInfo.hide_build_info()
 	var game_scene
 	if level.game_type == Level.GAME_TYPE.CAR:

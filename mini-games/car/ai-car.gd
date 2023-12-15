@@ -7,7 +7,6 @@ var force_com = 0.0
 
 @export var forward_force: float = 16.0
 @export var max_speed: float = 400.0
-var first = true
 
 func reset_inputs():
 	force_com = 0.0
@@ -32,17 +31,12 @@ func _process(delta):
 	press_forward()
 
 func _physics_process(delta):
-	if first:
-		#apply_force(Vector2(0, 20000.0))
-		first = false
-		return
 	var tf = get_global_transform()
 	var vel = get_linear_velocity()
 #   get the orthogonal velocity vector
 	var right_vel = tf.x * tf.x.dot(vel)
 #   decrease the force in proportion to the velocity to stop endless acceleration
 	var force = force_com - force_com * clamp(vel.length() / max_speed, 0.0, 1.0)
-	#print("force %s" % [force])
 	var steering_torque = steering_com
 	if tf.y.dot(vel) < 0.0:
 #   if reversing, reverse the steering
@@ -58,16 +52,3 @@ func _physics_process(delta):
 #   scale the steering torque with velocity to prevent turning the car when not moving
 	apply_torque(steering_torque * vel.length() / 200.0)
 
-func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
-	if state.get_contact_count() == 0:
-		return
-	
-	var collision_force = Vector2.ZERO
-	for i in range(state.get_contact_count()):
-		collision_force += state.get_contact_impulse(i) * state.get_contact_local_normal(i)
-	#if collision_force != Vector2.ZERO:
-	#	Global.fire_vehicle_hit(17)
-	#if collision_force.length_squared() > 30000.0:
-	#	$crash_sounds.play_big_sound()
-	#elif collision_force.length_squared() > 100.0:
-	#	$crash_sounds.play_small_sound()

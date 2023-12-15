@@ -12,7 +12,6 @@ func _process(_delta: float) -> void:
 func hide_build_info():
 	%build_label.visible = false
 	%fps_label.visible = false
-	print("HIDE")
 
 func show_build_info():
 	%build_label.visible = true
