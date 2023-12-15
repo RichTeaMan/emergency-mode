@@ -411,7 +411,7 @@ visible_ratio = 0.0
 [node name="Label7" type="Label" parent="CanvasLayer/cutscene_animation/MarginContainer/CenterContainer/VBoxContainer2"]
 layout_mode = 2
 theme = ExtResource("4_4qr0o")
-text = "The Company regrets and inconvenience."
+text = "The Company regrets the inconvenience."
 visible_characters = 0
 visible_ratio = 0.0
 
