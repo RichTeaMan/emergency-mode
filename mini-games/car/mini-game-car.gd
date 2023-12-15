@@ -1,6 +1,8 @@
 extends Node
 
 var car_active = true
+var cutscene_playing = false
+var cutscene_awaiting_input = false
 
 var time = 0.0
 var time_target = 60.0
@@ -25,6 +27,12 @@ func _physics_process(_delta):
 
 func _process(_delta):
 	%car.reset_inputs()
+	if cutscene_playing:
+		if cutscene_awaiting_input && Input.is_action_pressed("ui_accept"):
+			cutscene_playing = false
+			cutscene_awaiting_input = false
+			%cutscene_animation/MarginContainer.hide()
+		return
 	if !car_active:
 		%timer_label.hide()
 		%arrow.hide()
@@ -37,7 +45,7 @@ func _process(_delta):
 	elif !Input.is_action_pressed("left") && Input.is_action_pressed("right"):
 		%car.press_right()
 
-func load_level(level: Level):
+func load_level(level: Level, first_time: bool):
 	var map_path = "res://maps/%s.tscn" % level.map_name;
 	
 	print("Loading map from %s" % map_path)
@@ -52,21 +60,30 @@ func load_level(level: Level):
 	
 	time_target = level.time
 	
-	var tree = %map_container.get_tree()
-	#map.get_children().get_nodes_in_group
 	# find destination node
 	var destination_nodes_freed: Array[Node] = map.get_tree().get_nodes_in_group('destination')#.filter(func(node: Node): node.is_queued_for_deletion() == false)
 	var destination_nodes = []
 	for n in destination_nodes_freed:
-		print("free? %s" % n.is_queued_for_deletion())
 		if !n.is_queued_for_deletion():
 			destination_nodes.append(n)
 	if destination_nodes.size() > 0:
 		destination_node = destination_nodes[destination_nodes.size() - 1]
 	if destination_nodes.size() != 1:
 		print("Irregular number of destinations found, found %s." % destination_nodes.size())
+	
+	if first_time && level.name == "Estate 1":
+		cutscene_playing = true
+		for node in %cutscene_animation.get_children(true):
+			node.show()
+		%cutscene_animation.play("intro")
+	else:
+		%cutscene_animation/MarginContainer.hide()
 
-func _vehicle_hit(speed: float):
+func _on_cutscene_animation_animation_finished(anim_name):
+	if anim_name == "intro":
+		cutscene_awaiting_input = true
+
+func _vehicle_hit(_speed: float):
 	if !car_active:
 		return
 	car_active = false
@@ -81,11 +98,12 @@ func _destination_hit():
 	%timer.stop()
 
 func _on_timer_timeout():
-	if !car_active:
+	%timer_label.text = "%04.1f seconds" % (time_target - time)
+	if cutscene_playing || !car_active:
 		return
 	time += %timer.wait_time
 	if time >= time_target || is_equal_approx(time, time_target):
 		Global.fire_game_over(Global.GameOverResult.TIMEOUT)
 		car_active = false
 		%timer.stop()
-	%timer_label.text = "%04.1f seconds" % (time_target - time)
+	

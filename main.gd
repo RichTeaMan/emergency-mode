@@ -82,7 +82,7 @@ func _ready():
 		# I'm choosing not to worry about it.
 		level_index = int(arguments.level) - 1
 		print("Setting level to %s because of command line argument." % level_index)
-		load_level(levels[level_index])
+		load_level(levels[level_index], false)
 	
 	else:
 		# show title screen
@@ -110,7 +110,7 @@ func _game_over(game_over_state):
 		%button_next.disabled = false
 		show_success_ui()
 
-func load_level(level: Level):
+func load_level(level: Level, first_time: bool):
 	var game_scene
 	if level.game_type == Level.GAME_TYPE.CAR:
 		game_scene = load("res://mini-games/car/mini-game-car.tscn")
@@ -122,19 +122,19 @@ func load_level(level: Level):
 	
 	var game = game_scene.instantiate()
 	$"%game_container".add_child(game)
-	game.load_level(level)
+	game.load_level(level, first_time)
 
 func _next_level():
 	level_index += 1
 	level_index %= levels.size()
-	load_level(levels[level_index])
+	load_level(levels[level_index], true)
 
 func _restart_level():
-	load_level(levels[level_index])
+	load_level(levels[level_index], false)
 
 func _start_level(start_level_index: int):
 	level_index = start_level_index
-	load_level(levels[level_index])
+	load_level(levels[level_index], true)
 
 func _on_button_next_pressed():
 	hide_ui()
