@@ -5,7 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ela4"]
 size = Vector2(64, 64)
 
-[node name="Destination" type="Node2D"]
+[node name="Destination" type="Node2D" groups=["destination"]]
 z_index = 1
 script = ExtResource("1_oikcn")
 size_x = 10.0
@@ -23,6 +23,6 @@ offset_left = -5.0
 offset_top = -5.0
 offset_right = 5.0
 offset_bottom = 5.0
-color = Color(0, 0.937255, 0.941176, 0.494118)
+color = Color(0, 0, 1, 0.705882)
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

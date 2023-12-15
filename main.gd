@@ -117,22 +117,21 @@ func load_level(level: Level):
 	else:
 		push_error("Unknown game type: %s" % level.game_type)
 	
-	var game = game_scene.instantiate()
-	game.load_level(level)
-	
 	for child in $%game_container.get_children():
 		child.queue_free()
-		#child.free()
+	
+	var game = game_scene.instantiate()
 	$"%game_container".add_child(game)
+	game.load_level(level)
 
 func _next_level():
 	level_index += 1
 	level_index %= levels.size()
 	load_level(levels[level_index])
-	
+
 func _restart_level():
 	load_level(levels[level_index])
-		
+
 func _start_level(start_level_index: int):
 	level_index = start_level_index
 	load_level(levels[level_index])
