@@ -67,6 +67,7 @@ func _ready():
 	Global.connect("next_level", Callable(self, "_next_level"))
 	Global.connect("restart_level", Callable(self, "_restart_level"))
 	Global.connect("start_level", Callable(self, "_start_level"))
+	Global.connect("show_title_screen", Callable(self, "_show_title_screen"))
 	
 	print("cmd: %s" % OS.get_cmdline_args())
 	
@@ -85,9 +86,7 @@ func _ready():
 		load_level(levels[level_index], false)
 	
 	else:
-		# show title screen
-		var title_scene = load("res://title.tscn")
-		%game_container.add_child(title_scene.instantiate())
+		_show_title_screen()
 
 func _process(delta):
 	if Input.is_action_pressed("ui_accept"):
@@ -111,23 +110,40 @@ func _game_over(game_over_state):
 		show_success_ui()
 
 func load_level(level: Level, first_time: bool):
+	print("about to hide?")
+	BuildInfo.hide_build_info()
 	var game_scene
 	if level.game_type == Level.GAME_TYPE.CAR:
 		game_scene = load("res://mini-games/car/mini-game-car.tscn")
 	else:
 		push_error("Unknown game type: %s" % level.game_type)
 	
-	for child in $%game_container.get_children():
-		child.queue_free()
+	clear_game_container()
 	
 	var game = game_scene.instantiate()
 	$"%game_container".add_child(game)
 	game.load_level(level, first_time)
 
+func clear_game_container():
+	for child in $%game_container.get_children():
+		child.queue_free()
+
+func _show_title_screen():
+	clear_game_container()
+	BuildInfo.show_build_info()
+	var title_scene = load("res://title.tscn")
+	%game_container.add_child(title_scene.instantiate())
+
 func _next_level():
 	level_index += 1
-	level_index %= levels.size()
-	load_level(levels[level_index], true)
+	if level_index >= levels.size():
+		level_index = 0
+		clear_game_container()
+		var game_over_scene = load("res://game_over.tscn")
+		var game_over = game_over_scene.instantiate()
+		%game_container.add_child(game_over)
+	else:
+		load_level(levels[level_index], true)
 
 func _restart_level():
 	load_level(levels[level_index], false)

@@ -12,9 +12,14 @@ var spawns = [
 
 var ai_car_scene = preload("res://mini-games/car/ai-car.tscn")
 
+func _process(_delta):
+	if Input.is_action_just_pressed("ui_accept"):
+		_on_button_start_game_pressed()
+	elif Input.is_action_just_pressed("ui_cancel"):
+		_on_button_quit_game_pressed()
+
 func _on_button_start_game_pressed():
 	Global.fire_start_level(0)
-
 
 func _on_timer_timeout():
 	var spawn = spawns[randi() % spawns.size()]
@@ -29,3 +34,5 @@ func _on_timer_timeout():
 		if node.position.x > bound || node.position.y < -bound:
 			node.queue_free()
 
+func _on_button_quit_game_pressed():
+	get_tree().quit()

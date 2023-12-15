@@ -1,0 +1,145 @@
+[gd_scene load_steps=5 format=3 uid="uid://c840ktp88x875"]
+
+[ext_resource type="Script" path="res://game_over.gd" id="1_tnvj7"]
+[ext_resource type="Theme" uid="uid://dylr3kfip6eyw" path="res://resources/game_ui.tres" id="2_sfmg5"]
+
+[sub_resource type="Animation" id="Animation_00d72"]
+resource_name = "game_over"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/MarginContainer/CenterContainer/VBoxContainer/Label:visible_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/MarginContainer/CenterContainer/VBoxContainer/Label2:visible_ratio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6, 1.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/MarginContainer/CenterContainer/VBoxContainer/Label4:visible_ratio")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.8, 2.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CanvasLayer/MarginContainer/CenterContainer/VBoxContainer/Label5:visible_ratio")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 2.7, 3.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CanvasLayer/MarginContainer/CenterContainer/VBoxContainer/Label7:visible_ratio")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 3.7, 4.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kiqim"]
+_data = {
+"game_over": SubResource("Animation_00d72")
+}
+
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tnvj7")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="CanvasLayer"]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/CanvasLayer"]
+offset_right = 1280.0
+offset_bottom = 800.0
+color = Color(0, 0, 0, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/CenterContainer"]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_sfmg5")
+text = "> EMERGENCY AVERTED."
+
+[node name="Label2" type="Label" parent="CanvasLayer/MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_sfmg5")
+text = "Emergency Mode primary objective completed."
+
+[node name="Label3" type="Label" parent="CanvasLayer/MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_sfmg5")
+
+[node name="Label4" type="Label" parent="CanvasLayer/MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_sfmg5")
+text = "That's it. Thank you for playing."
+
+[node name="Label5" type="Label" parent="CanvasLayer/MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_sfmg5")
+text = "Any and all feedback is appreciated."
+
+[node name="Label6" type="Label" parent="CanvasLayer/MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_sfmg5")
+
+[node name="Label7" type="Label" parent="CanvasLayer/MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_sfmg5")
+text = "<Press SPACE to return to title screen>"
+
+[node name="animation_player" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_kiqim")
+}

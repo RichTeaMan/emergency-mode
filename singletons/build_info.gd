@@ -8,3 +8,12 @@ func _ready():
 
 func _process(_delta: float) -> void:
 	$"%fps_label".text = "FPS: %s" % Engine.get_frames_per_second()
+
+func hide_build_info():
+	%build_label.visible = false
+	%fps_label.visible = false
+	print("HIDE")
+
+func show_build_info():
+	%build_label.visible = true
+	%fps_label.visible = true
