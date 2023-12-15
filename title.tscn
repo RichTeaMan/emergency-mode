@@ -63,6 +63,35 @@ theme = ExtResource("2_qwuuv")
 text = "In the near and short-sighted future, all road vehicles are run by AI. Unfortunately, cutbacks mean we've sacked the entire quality control department. As a result, our cars are liable to lock at full throttle. When this happens, Emergency Mode is activated. You must steer clear of any danger during the allotted time. "
 scroll_active = false
 
+[node name="MarginContainer4" type="MarginContainer" parent="."]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer4"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="MarginContainer4/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_qwuuv")
+text = "© Tom Holmes 2023"
+
+[node name="LinkButton" type="LinkButton" parent="MarginContainer4/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_qwuuv")
+text = "Github"
+uri = "https://github.com/RichTeaMan/emergency-mode"
+
+[node name="LinkButton2" type="LinkButton" parent="MarginContainer4/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_qwuuv")
+text = "itch.io"
+uri = "https://richteaman.itch.io/emergency-mode"
+
 [node name="Timer" type="Timer" parent="."]
 autostart = true
 
