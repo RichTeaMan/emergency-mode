@@ -145,5 +145,5 @@ func _on_button_retry_pressed():
 	hide_ui()
 	Global.fire_restart_level()
 
-func _on_button_menu_pressed():
-	pass # Replace with function body.
+func _on_button_menu_quit():
+	get_tree().quit()

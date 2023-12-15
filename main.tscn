@@ -124,11 +124,11 @@ size_flags_horizontal = 3
 theme = ExtResource("3_v6cx0")
 text = "Play Again"
 
-[node name="button_menu" type="Button" parent="CanvasLayer/container_bottom/VBoxContainer/HBoxContainer"]
+[node name="button_quit" type="Button" parent="CanvasLayer/container_bottom/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("3_v6cx0")
-text = "Main Menu"
+text = "Quit"
 
 [node name="music_player" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
@@ -138,4 +138,4 @@ bus = &"Music"
 
 [connection signal="pressed" from="CanvasLayer/container_bottom/VBoxContainer/HBoxContainer/button_next" to="." method="_on_button_next_pressed"]
 [connection signal="pressed" from="CanvasLayer/container_bottom/VBoxContainer/HBoxContainer/button_retry" to="." method="_on_button_retry_pressed"]
-[connection signal="pressed" from="CanvasLayer/container_bottom/VBoxContainer/HBoxContainer/button_menu" to="." method="_on_button_menu_pressed"]
+[connection signal="pressed" from="CanvasLayer/container_bottom/VBoxContainer/HBoxContainer/button_quit" to="." method="_on_button_menu_quit"]
