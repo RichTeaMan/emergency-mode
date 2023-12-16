@@ -9,7 +9,7 @@ Sprites made using [Pixelorama](https://orama-interactive.itch.io/pixelorama). P
 
 ## Attributions
 
-Font is [Fira Mono](https://fonts.google.com/specimen/Fira+Mono).
-Music is Sunset Alleyway from [Hypercasual Music Pack4](https://void1gaming.itch.io/hypercasual-music-pack-4).
+* Font is [Fira Mono](https://fonts.google.com/specimen/Fira+Mono).
+* Music is Sunset Alleyway from [Hypercasual Music Pack4](https://void1gaming.itch.io/hypercasual-music-pack-4).
 
 Everything else made by me.
