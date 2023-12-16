@@ -99,6 +99,7 @@ text = "itch.io"
 uri = "https://richteaman.itch.io/emergency-mode"
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
 autostart = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]

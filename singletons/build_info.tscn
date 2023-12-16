@@ -4,6 +4,7 @@
 
 [node name="build_info" type="CanvasLayer"]
 layer = 128
+visible = false
 script = ExtResource("1")
 
 [node name="gui" type="MarginContainer" parent="."]
