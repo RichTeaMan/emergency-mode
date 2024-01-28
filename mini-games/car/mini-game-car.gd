@@ -8,13 +8,21 @@ var time_target = 60.0
 
 var destination_node: Node2D = null
 
+var first_frame = true
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# something about the scene load causes the car and arrow to appear in the
+	# wrong place at the first frame. this is a cheap hack to make things less
+	# jarring
+	%arrow.modulate.a = 0.0
+	%car.visible = false
+	
 	Global.connect("vehicle_hit", Callable(self, "_vehicle_hit"))
 	Global.connect("destination_hit", Callable(self, "_destination_hit"))
 
 func _physics_process(_delta):
-	if destination_node != null:
+	if !first_frame && destination_node != null:
 		%arrow.look_at(destination_node.global_position)
 		var car_distance = %car.global_position.distance_to(destination_node.global_position)
 		var car_fade_distance = 1500
@@ -23,8 +31,11 @@ func _physics_process(_delta):
 		var car_fade = clamp(car_distance / car_fade_distance, 0.0, 1.0)
 		var arrow_fade = clamp(arrow_distance / arrow_fade_distance, 0.0, 1.0)
 		%arrow.modulate.a = min(car_fade, arrow_fade)
+	first_frame = false
 
 func _process(_delta):
+	
+	%car.visible = true
 	%car.reset_inputs()
 	if cutscene_playing:
 		if Input.is_action_just_pressed("ui_accept"):
@@ -83,7 +94,7 @@ func _on_cutscene_animation_animation_finished(anim_name):
 #		cutscene_awaiting_input = true
 
 func _vehicle_hit(_speed: float):
-	if !car_active:
+	if first_frame || !car_active:
 		return
 	car_active = false
 	%timer.stop()
